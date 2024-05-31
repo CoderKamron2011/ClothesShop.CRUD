@@ -7,10 +7,10 @@ namespace FlowerShop.CRUD.Brokers.Storage
 {
     internal class ArrayStorageBroker : IStorageBroker
     {
-        public Clothes[] Clothes {  get; set; } = new Clothes[10];
+        public Clothes[] ClothesInfo {  get; set; } = new Clothes[10];
         public ArrayStorageBroker() 
         {
-            Clothes[0] = new Clothes()
+            ClothesInfo[0] = new Clothes()
             {
                 Id = 1,
                 Name = "Jeans",
@@ -19,7 +19,7 @@ namespace FlowerShop.CRUD.Brokers.Storage
                 Size = 30,
                 Decription = "Well"
             };
-            Clothes[1] = new Clothes()
+            ClothesInfo[1] = new Clothes()
             {
                 Id = 2,
                 Name = "Sneakers",
@@ -31,11 +31,11 @@ namespace FlowerShop.CRUD.Brokers.Storage
         }
         public Clothes AddClothes(Clothes clothes)
         {
-            for (int itaration = 0; itaration < Clothes.Length; itaration++)
+            for (int itaration = 0; itaration < ClothesInfo.Length; itaration++)
             {
-                if (Clothes[itaration] is null)
+                if (ClothesInfo[itaration] is null)
                 {
-                    Clothes[itaration] = new Clothes()
+                    ClothesInfo[itaration] = new Clothes()
                     {
                         Id = clothes.Id,
                         Name = clothes.Name,
@@ -53,22 +53,62 @@ namespace FlowerShop.CRUD.Brokers.Storage
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            for (int itaration = 0; itaration < ClothesInfo.Length; itaration++)
+            {
+                if (ClothesInfo[itaration] is not null)
+                {
+                    if (ClothesInfo[itaration].Id == id)
+                    {
+                        ClothesInfo[itaration] = new Clothes();
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
-        public Clothes[] GetAllClothes()
-        {
-            throw new NotImplementedException();
-        }
+        public Clothes[] GetAllClothes() => this.ClothesInfo;
 
         public Clothes GetClothes(int id)
         {
-            throw new NotImplementedException();
+            for (int itaration = 0; itaration < ClothesInfo.Length; itaration++)
+            {
+                if (ClothesInfo[itaration] is not null)
+                {
+                    if (ClothesInfo[itaration].Id == id)
+                    {
+                        return ClothesInfo[itaration];
+                    }
+                }
+            }
+
+            return new Clothes();
         }
 
         public Clothes Update(int id, Clothes clothes)
         {
-            throw new NotImplementedException();
+            for (int itaration = 0; itaration < ClothesInfo.Length; itaration++)
+            {
+                if (ClothesInfo[itaration] is not null)
+                {
+                    if (ClothesInfo[itaration].Id == id)
+                    {
+                        ClothesInfo[itaration] = new Clothes()
+                        {
+                            Name = clothes.Name,
+                            Amount = clothes.Amount,
+                            Cost = clothes.Cost,
+                            Decription = clothes.Decription,
+                            Size = clothes.Size,
+                            Id = id,
+                        };
+                        return clothes;
+                    }
+                }
+            }
+
+            return new Clothes();
         }
     }
 }
