@@ -1,6 +1,4 @@
-﻿//----------------------------------------
-// Great Code Team (c) All rights reserved
-//----------------------------------------
+
 using System.Text;
 using System.Threading.Tasks;
 
